@@ -1,0 +1,55 @@
+<div class="dashboard">
+  <header>
+    <h1>FitTrack</h1>
+    <div class="header-right">
+      <span>{{ email }}</span>
+      <button (click)="logout()" class="logout-btn">Çıkış</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="section-header">
+      <h2>Antrenman Programlarım</h2>
+      <button (click)="showForm = !showForm" class="add-btn">
+        {{ showForm ? 'İptal' : '+ Yeni Program' }}
+      </button>
+    </div>
+
+    @if (showForm) {
+    <div class="form-card">
+      <input
+        type="text"
+        [(ngModel)]="newPlanName"
+        placeholder="Program adı"
+        class="form-input" />
+      <input
+        type="text"
+        [(ngModel)]="newPlanDescription"
+        placeholder="Açıklama (opsiyonel)"
+        class="form-input" />
+      <button (click)="createPlan()" class="save-btn">Kaydet</button>
+    </div>
+    }
+
+    @if (plans.length === 0) {
+    <div class="empty">
+      <p>Henüz program yok. İlk programını oluştur!</p>
+    </div>
+    }
+
+    <div class="plans-grid">
+      @for (plan of plans; track plan.id) {
+      <div class="plan-card">
+        <div class="plan-info">
+          <h3>{{ plan.name }}</h3>
+          @if (plan.description) {
+          <p>{{ plan.description }}</p>
+          }
+          <span class="day-count">{{ plan.dayCount }} gün</span>
+        </div>
+        <button (click)="deletePlan(plan.id)" class="delete-btn">Sil</button>
+      </div>
+      }
+    </div>
+  </main>
+</div>
