@@ -1,6 +1,11 @@
 <div class="dashboard">
   <header>
     <h1>FitTrack</h1>
+    <nav>
+      <a routerLink="/dashboard" class="active">Programlar</a>
+      <a routerLink="/workout-log">Antrenman Kaydı</a>
+      <a routerLink="/personal-records">Kişisel Rekorlar</a>
+    </nav>
     <div class="header-right">
       <span>{{ email }}</span>
       <button (click)="logout()" class="logout-btn">Çıkış</button>

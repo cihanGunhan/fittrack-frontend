@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # FittrackFrontend
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.8.
@@ -57,3 +58,7 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+=======
+# fittrack-frontend
+Personal fitness tracking web application - Angular 19, JWT authentication, Spring Boot REST API
+>>>>>>> c8082705d1eb093a7554750a8269e8310a953557

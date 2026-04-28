@@ -1,0 +1,78 @@
+<div class="page">
+  <header>
+    <h1>FitTrack</h1>
+    <nav>
+      <a routerLink="/dashboard">Programlar</a>
+      <a routerLink="/workout-log">Antrenman Kaydı</a>
+      <a routerLink="/personal-records" class="active">Kişisel Rekorlar</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="section-header">
+      <h2>Kişisel Rekorlarım</h2>
+      <button (click)="showForm = !showForm" class="add-btn">
+        {{ showForm ? 'İptal' : '+ Yeni Rekor' }}
+      </button>
+    </div>
+
+    @if (showForm) {
+    <div class="form-card">
+      <select [(ngModel)]="newRecord.exerciseId" class="form-input">
+        <option [value]="null">Egzersiz seç</option>
+        @for (exercise of exercises; track exercise.id) {
+        <option [value]="exercise.id">{{ exercise.name }}</option>
+        }
+      </select>
+      <div class="form-row">
+        <input
+          type="number"
+          [(ngModel)]="newRecord.weight"
+          placeholder="Ağırlık (kg)"
+          class="form-input"
+          required />
+        <input
+          type="number"
+          [(ngModel)]="newRecord.reps"
+          placeholder="Tekrar"
+          class="form-input" />
+      </div>
+      <input
+        type="date"
+        [(ngModel)]="newRecord.achievedDate"
+        class="form-input" />
+      <input
+        type="text"
+        [(ngModel)]="newRecord.notes"
+        placeholder="Notlar (opsiyonel)"
+        class="form-input" />
+      <button (click)="createRecord()" class="save-btn">Kaydet</button>
+    </div>
+    }
+
+    @if (records.length === 0) {
+    <div class="empty">
+      <p>Henüz kişisel rekor yok.</p>
+    </div>
+    }
+
+    <div class="records-list">
+      @for (record of records; track record.id) {
+      <div class="record-card">
+        <div class="record-info">
+          <h3>{{ record.exerciseName }}</h3>
+          <div class="record-stats">
+            <span class="weight">{{ record.weight }} kg</span>
+            <span>{{ record.reps }} tekrar</span>
+          </div>
+          <p class="record-date">{{ record.achievedDate }}</p>
+          @if (record.notes) {
+          <p class="record-notes">{{ record.notes }}</p>
+          }
+        </div>
+        <button (click)="deleteRecord(record.id)" class="delete-btn">Sil</button>
+      </div>
+      }
+    </div>
+  </main>
+</div>

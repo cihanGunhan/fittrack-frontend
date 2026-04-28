@@ -1,0 +1,83 @@
+<div class="page">
+  <header>
+    <h1>FitTrack</h1>
+    <nav>
+      <a routerLink="/dashboard">Programlar</a>
+      <a routerLink="/workout-log" class="active">Antrenman Kaydı</a>
+      <a routerLink="/personal-records">Kişisel Rekortlar</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="section-header">
+      <h2>Antrenman Kayıtları</h2>
+      <button (click)="showForm = !showForm" class="add-btn">
+        {{ showForm ? 'İptal' : '+ Yeni Kayıt' }}
+      </button>
+    </div>
+
+    @if (showForm) {
+    <div class="form-card">
+      <select [(ngModel)]="newLog.exerciseId" class="form-input">
+        <option [value]="null">Egzersiz seç</option>
+        @for (exercise of exercises; track exercise.id) {
+        <option [value]="exercise.id">{{ exercise.name }}</option>
+        }
+      </select>
+      <input
+        type="date"
+        [(ngModel)]="newLog.logDate"
+        class="form-input" />
+      <div class="form-row">
+        <input
+          type="number"
+          [(ngModel)]="newLog.sets"
+          placeholder="Set"
+          class="form-input" />
+        <input
+          type="number"
+          [(ngModel)]="newLog.reps"
+          placeholder="Tekrar"
+          class="form-input" />
+        <input
+          type="number"
+          [(ngModel)]="newLog.weight"
+          placeholder="Ağırlık (kg)"
+          class="form-input" />
+      </div>
+      <input
+        type="text"
+        [(ngModel)]="newLog.notes"
+        placeholder="Notlar (opsiyonel)"
+        class="form-input" />
+      <button (click)="createLog()" class="save-btn">Kaydet</button>
+    </div>
+    }
+
+    @if (logs.length === 0) {
+    <div class="empty">
+      <p>Henüz antrenman kaydı yok.</p>
+    </div>
+    }
+
+    <div class="logs-list">
+      @for (log of logs; track log.id) {
+      <div class="log-card">
+        <div class="log-info">
+          <h3>{{ log.exerciseName }}</h3>
+          <p class="log-date">{{ log.logDate }}</p>
+          <div class="log-stats">
+            <span>{{ log.sets }} set</span>
+            <span>{{ log.reps }} tekrar</span>
+            <span>{{ log.weight }} kg</span>
+          </div>
+          @if (log.notes) {
+          <p class="log-notes">{{ log.notes }}</p>
+          }
+        </div>
+        <button (click)="deleteLog(log.id)" class="delete-btn">Sil</button>
+      </div>
+      }
+    </div>
+  </main>
+</div>
