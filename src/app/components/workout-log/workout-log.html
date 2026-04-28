@@ -1,83 +1,80 @@
-<div class="page">
-  <header>
-    <h1>FitTrack</h1>
-    <nav>
-      <a routerLink="/dashboard">Programlar</a>
-      <a routerLink="/workout-log" class="active">Antrenman Kaydı</a>
-      <a routerLink="/personal-records">Kişisel Rekortlar</a>
-    </nav>
-  </header>
-
-  <main>
-    <div class="section-header">
-      <h2>Antrenman Kayıtları</h2>
-      <button (click)="showForm = !showForm" class="add-btn">
-        {{ showForm ? 'İptal' : '+ Yeni Kayıt' }}
-      </button>
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand text-danger fw-bold" routerLink="/dashboard">FitTrack</a>
+    <div class="navbar-nav me-auto">
+      <a class="nav-link" routerLink="/dashboard">Programlar</a>
+      <a class="nav-link active" routerLink="/workout-log">Antrenman Kaydı</a>
+      <a class="nav-link" routerLink="/personal-records">Kişisel Rekorlar</a>
     </div>
+  </div>
+</nav>
 
-    @if (showForm) {
-    <div class="form-card">
-      <select [(ngModel)]="newLog.exerciseId" class="form-input">
-        <option [value]="null">Egzersiz seç</option>
-        @for (exercise of exercises; track exercise.id) {
-        <option [value]="exercise.id">{{ exercise.name }}</option>
-        }
-      </select>
-      <input
-        type="date"
-        [(ngModel)]="newLog.logDate"
-        class="form-input" />
-      <div class="form-row">
-        <input
-          type="number"
-          [(ngModel)]="newLog.sets"
-          placeholder="Set"
-          class="form-input" />
-        <input
-          type="number"
-          [(ngModel)]="newLog.reps"
-          placeholder="Tekrar"
-          class="form-input" />
-        <input
-          type="number"
-          [(ngModel)]="newLog.weight"
-          placeholder="Ağırlık (kg)"
-          class="form-input" />
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">Antrenman Kayıtları</h4>
+    <button (click)="showForm = !showForm" class="btn btn-danger btn-sm">
+      {{ showForm ? 'İptal' : '+ Yeni Kayıt' }}
+    </button>
+  </div>
+
+  @if (showForm) {
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="mb-3">
+        <select class="form-select" [(ngModel)]="newLog.exerciseId">
+          <option [value]="null">Egzersiz seç</option>
+          @for (exercise of exercises; track exercise.id) {
+          <option [value]="exercise.id">{{ exercise.name }}</option>
+          }
+        </select>
       </div>
-      <input
-        type="text"
-        [(ngModel)]="newLog.notes"
-        placeholder="Notlar (opsiyonel)"
-        class="form-input" />
-      <button (click)="createLog()" class="save-btn">Kaydet</button>
+      <div class="mb-3">
+        <input type="date" class="form-control" [(ngModel)]="newLog.logDate" />
+      </div>
+      <div class="row g-2 mb-3">
+        <div class="col">
+          <input type="number" class="form-control" [(ngModel)]="newLog.sets" placeholder="Set" />
+        </div>
+        <div class="col">
+          <input type="number" class="form-control" [(ngModel)]="newLog.reps" placeholder="Tekrar" />
+        </div>
+        <div class="col">
+          <input type="number" class="form-control" [(ngModel)]="newLog.weight" placeholder="Ağırlık (kg)" />
+        </div>
+      </div>
+      <div class="mb-3">
+        <input type="text" class="form-control" [(ngModel)]="newLog.notes" placeholder="Notlar (opsiyonel)" />
+      </div>
+      <button (click)="createLog()" class="btn btn-danger">Kaydet</button>
     </div>
-    }
+  </div>
+  }
 
-    @if (logs.length === 0) {
-    <div class="empty">
-      <p>Henüz antrenman kaydı yok.</p>
-    </div>
-    }
+  @if (logs.length === 0) {
+  <div class="text-center text-muted py-5">
+    <p>Henüz antrenman kaydı yok.</p>
+  </div>
+  }
 
-    <div class="logs-list">
-      @for (log of logs; track log.id) {
-      <div class="log-card">
-        <div class="log-info">
-          <h3>{{ log.exerciseName }}</h3>
-          <p class="log-date">{{ log.logDate }}</p>
-          <div class="log-stats">
-            <span>{{ log.sets }} set</span>
-            <span>{{ log.reps }} tekrar</span>
-            <span>{{ log.weight }} kg</span>
+  <div class="d-flex flex-column gap-3">
+    @for (log of logs; track log.id) {
+    <div class="card">
+      <div class="card-body d-flex justify-content-between align-items-start">
+        <div>
+          <h6 class="mb-1">{{ log.exerciseName }}</h6>
+          <p class="text-muted small mb-2">{{ log.logDate }}</p>
+          <div class="d-flex gap-2">
+            <span class="badge bg-light text-dark border">{{ log.sets }} set</span>
+            <span class="badge bg-light text-dark border">{{ log.reps }} tekrar</span>
+            <span class="badge bg-light text-dark border">{{ log.weight ?? 0 }} kg</span>
           </div>
           @if (log.notes) {
-          <p class="log-notes">{{ log.notes }}</p>
+          <p class="text-muted small mt-2 mb-0">{{ log.notes }}</p>
           }
         </div>
-        <button (click)="deleteLog(log.id)" class="delete-btn">Sil</button>
+        <button (click)="deleteLog(log.id)" class="btn btn-outline-danger btn-sm">Sil</button>
       </div>
-      }
     </div>
-  </main>
+    }
+  </div>
 </div>

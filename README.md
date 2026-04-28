@@ -1,64 +1,46 @@
-<<<<<<< HEAD
-# FittrackFrontend
+# FitTrack Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.8.
+Angular frontend for the FitTrack personal fitness tracking application.
 
-## Development server
+Built with Angular 19, Bootstrap 5, and Bootswatch Lux theme.
 
-To start a local development server, run:
+## Requirements
+
+- Node.js 18+
+- Angular CLI
+- FitTrack API running on port 8081
+
+## Getting Started
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Application runs on `http://localhost:4200`
 
-## Code scaffolding
+## Pages
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Login / Register** — JWT authentication
+- **Dashboard** — manage workout plans
+- **Workout Log** — log exercise sessions with sets, reps and weight
+- **Personal Records** — track personal bests per exercise
 
-```bash
-ng generate component component-name
-```
+## Backend
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+This frontend requires the FitTrack API. See [fittrack-api](https://github.com/cihanGunhan/fittrack-api) for setup instructions.
 
-```bash
-ng generate --help
-```
+## Tech Stack
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-=======
-# fittrack-frontend
-Personal fitness tracking web application - Angular 19, JWT authentication, Spring Boot REST API
->>>>>>> c8082705d1eb093a7554750a8269e8310a953557
+- Angular 19
+- Bootstrap 5
+- Bootswatch Lux
+- JWT authentication via HttpInterceptor
+- AuthGuard for protected routes

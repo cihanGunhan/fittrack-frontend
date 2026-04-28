@@ -1,78 +1,76 @@
-<div class="page">
-  <header>
-    <h1>FitTrack</h1>
-    <nav>
-      <a routerLink="/dashboard">Programlar</a>
-      <a routerLink="/workout-log">Antrenman Kaydı</a>
-      <a routerLink="/personal-records" class="active">Kişisel Rekorlar</a>
-    </nav>
-  </header>
-
-  <main>
-    <div class="section-header">
-      <h2>Kişisel Rekorlarım</h2>
-      <button (click)="showForm = !showForm" class="add-btn">
-        {{ showForm ? 'İptal' : '+ Yeni Rekor' }}
-      </button>
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand text-danger fw-bold" routerLink="/dashboard">FitTrack</a>
+    <div class="navbar-nav me-auto">
+      <a class="nav-link" routerLink="/dashboard">Programlar</a>
+      <a class="nav-link" routerLink="/workout-log">Antrenman Kaydı</a>
+      <a class="nav-link active" routerLink="/personal-records">Kişisel Rekorlar</a>
     </div>
+  </div>
+</nav>
 
-    @if (showForm) {
-    <div class="form-card">
-      <select [(ngModel)]="newRecord.exerciseId" class="form-input">
-        <option [value]="null">Egzersiz seç</option>
-        @for (exercise of exercises; track exercise.id) {
-        <option [value]="exercise.id">{{ exercise.name }}</option>
-        }
-      </select>
-      <div class="form-row">
-        <input
-          type="number"
-          [(ngModel)]="newRecord.weight"
-          placeholder="Ağırlık (kg)"
-          class="form-input"
-          required />
-        <input
-          type="number"
-          [(ngModel)]="newRecord.reps"
-          placeholder="Tekrar"
-          class="form-input" />
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">Kişisel Rekorlarım</h4>
+    <button (click)="showForm = !showForm" class="btn btn-danger btn-sm">
+      {{ showForm ? 'İptal' : '+ Yeni Rekor' }}
+    </button>
+  </div>
+
+  @if (showForm) {
+  <div class="card mb-4">
+    <div class="card-body">
+      <div class="mb-3">
+        <select class="form-select" [(ngModel)]="newRecord.exerciseId">
+          <option [value]="null">Egzersiz seç</option>
+          @for (exercise of exercises; track exercise.id) {
+          <option [value]="exercise.id">{{ exercise.name }}</option>
+          }
+        </select>
       </div>
-      <input
-        type="date"
-        [(ngModel)]="newRecord.achievedDate"
-        class="form-input" />
-      <input
-        type="text"
-        [(ngModel)]="newRecord.notes"
-        placeholder="Notlar (opsiyonel)"
-        class="form-input" />
-      <button (click)="createRecord()" class="save-btn">Kaydet</button>
+      <div class="row g-2 mb-3">
+        <div class="col">
+          <input type="number" class="form-control" [(ngModel)]="newRecord.weight" placeholder="Ağırlık (kg)" />
+        </div>
+        <div class="col">
+          <input type="number" class="form-control" [(ngModel)]="newRecord.reps" placeholder="Tekrar" />
+        </div>
+      </div>
+      <div class="mb-3">
+        <input type="date" class="form-control" [(ngModel)]="newRecord.achievedDate" />
+      </div>
+      <div class="mb-3">
+        <input type="text" class="form-control" [(ngModel)]="newRecord.notes" placeholder="Notlar (opsiyonel)" />
+      </div>
+      <button (click)="createRecord()" class="btn btn-danger">Kaydet</button>
     </div>
-    }
+  </div>
+  }
 
-    @if (records.length === 0) {
-    <div class="empty">
-      <p>Henüz kişisel rekor yok.</p>
-    </div>
-    }
+  @if (records.length === 0) {
+  <div class="text-center text-muted py-5">
+    <p>Henüz kişisel rekor yok.</p>
+  </div>
+  }
 
-    <div class="records-list">
-      @for (record of records; track record.id) {
-      <div class="record-card">
-        <div class="record-info">
-          <h3>{{ record.exerciseName }}</h3>
-          <div class="record-stats">
-            <span class="weight">{{ record.weight }} kg</span>
-            <span>{{ record.reps }} tekrar</span>
+  <div class="d-flex flex-column gap-3">
+    @for (record of records; track record.id) {
+    <div class="card">
+      <div class="card-body d-flex justify-content-between align-items-start">
+        <div>
+          <h6 class="mb-1">{{ record.exerciseName }}</h6>
+          <div class="d-flex gap-2 align-items-center mb-1">
+            <span class="text-danger fw-bold fs-5">{{ record.weight }} kg</span>
+            <span class="badge bg-light text-dark border">{{ record.reps }} tekrar</span>
           </div>
-          <p class="record-date">{{ record.achievedDate }}</p>
+          <p class="text-muted small mb-0">{{ record.achievedDate }}</p>
           @if (record.notes) {
-          <p class="record-notes">{{ record.notes }}</p>
+          <p class="text-muted small mb-0">{{ record.notes }}</p>
           }
         </div>
-        <button (click)="deleteRecord(record.id)" class="delete-btn">Sil</button>
+        <button (click)="deleteRecord(record.id)" class="btn btn-outline-danger btn-sm">Sil</button>
       </div>
-      }
     </div>
-  </main>
+    }
+  </div>
 </div>
